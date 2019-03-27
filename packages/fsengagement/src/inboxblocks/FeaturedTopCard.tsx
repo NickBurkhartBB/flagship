@@ -17,6 +17,7 @@ import {
 import TextBlock from './TextBlock';
 import CTABlock from './CTABlock';
 import ImageBlock from './ImageBlock';
+import { Navigation } from 'react-native-navigation';
 
 export interface ComponentProps extends ScreenProps, EmitterProps {
   containerStyle?: StyleProp<TextStyle>;
@@ -46,16 +47,20 @@ export default class Card extends Component<ComponentProps> {
     this.props.api.logEvent('viewInboxStory', {
       messageId: this.props.id
     });
-    this.props.navigator.push({
-      screen: 'EngagementComp',
-      navigatorStyle: {
-        navBarHidden: true
-      },
-      passProps: {
-        json,
-        backButton: true,
-        name: this.props.name,
-        id: this.props.id
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'EngagementComp',
+        passProps: {
+          json,
+          backButton: true,
+          name: this.props.name,
+          id: this.props.id
+        },
+        options: {
+          topBar: {
+            visible: false
+          }
+        }
       }
     });
   }

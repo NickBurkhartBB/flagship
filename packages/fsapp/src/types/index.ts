@@ -1,9 +1,19 @@
 import { Analytics } from '@brandingbrand/fsengage';
 import { Dictionary } from '@brandingbrand/fsfoundation';
 import { FSNetworkRequestConfig } from '@brandingbrand/fsnetwork';
-import { Drawer, NavigatorButton, Screen, TabScreen } from 'react-native-navigation';
 import { ImageRequireSource } from 'react-native';
 import { PathFunction } from 'path-to-regexp';
+
+export interface FSNavigatorRoute<T = any> {
+  screen: string;
+  passProps?: T;
+}
+export interface FSNavigatorOptions {
+  componentId?: string;
+  appConfig: AppConfigType;
+  history?: any;
+  toggleDrawerFn: (config: DrawerConfig) => void;
+}
 
 export interface DrawerType {
   screen: string;

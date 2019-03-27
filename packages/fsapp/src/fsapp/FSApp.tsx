@@ -8,6 +8,20 @@ import NativeConstants from '../lib/native-constants';
 import { FSAppBase } from './FSAppBase';
 import DevMenu from '../components/DevMenu';
 
+function WrappedComponent(store: any, Component: any): any {
+  return function inject(props: any): any {
+    const EnhancedComponent = () => (
+      <Provider store={store}>
+        <Component
+          {...props}
+        />
+      </Provider>
+    );
+
+    return <EnhancedComponent />;
+  };
+}
+
 export class FSApp extends FSAppBase {
   constructor(appConfig: AppConfigType) {
     super(appConfig);
@@ -42,7 +56,7 @@ export class FSApp extends FSAppBase {
     }
 
     enhancedScreens.forEach(({ key, screen }) => {
-      Navigation.registerComponent(`${key}`, () => screen as any, this.store, Provider);
+      Navigation.registerComponent(`${key}`, () => WrappedComponent(this.store, screen));
     });
   }
 

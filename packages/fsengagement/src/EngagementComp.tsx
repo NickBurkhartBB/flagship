@@ -122,34 +122,44 @@ export default function(
       });
       switch (actions.type) {
         case 'blog-url':
-          this.props.navigator.push({
-            screen: 'EngagementWebView',
-            navigatorStyle: {
-              navBarHidden: true
-            },
-            passProps: {
-              actions,
-              isBlog: true,
-              backButton: true
+          Navigation.push(this.props.componentId, {
+            component: {
+              name: 'EngagementWebView',
+              passProps: {
+                actions,
+                isBlog: true,
+                backButton: true
+              },
+              options: {
+                topBar: {
+                  visible: false
+                }
+              }
             }
           });
           break;
         case 'web-url':
-          this.props.navigator.showModal({
-            screen: 'EngagementWebView',
-            passProps: { actions },
-            navigatorStyle: {
-              navBarBackgroundColor: '#f5f2ee',
-              navBarButtonColor: '#866d4b',
-              statusBarTextColorScheme: 'dark'
-            },
-            navigatorButtons: {
-              rightButtons: [
-                {
-                  icon: require('../assets/images/closeBronze.png'),
-                  id: 'close'
+          Navigation.showModal({
+            component: {
+              name: 'EngagementWebView',
+              passProps: actions,
+              options: {
+                topBar: {
+                  background: {
+                    color: '#f5f2ee'
+                  },
+                  buttonColor: '#866d4b',
+                  rightButtons: [
+                    {
+                      icon: require('../assets/images/closeBronze.png'),
+                      id: 'close'
+                    }
+                  ]
+                },
+                statusBar: {
+                  style: 'dark'
                 }
-              ]
+              }
             }
           });
           break;
@@ -187,7 +197,7 @@ export default function(
     }
 
     onBackPress = (): void => {
-      this.props.navigator.pop();
+      Navigation.pop(this.props.componentId);
     }
 
     renderBlock = (item: BlockItem): JSX.Element | undefined => {
@@ -205,7 +215,6 @@ export default function(
       if (!layoutComponents[private_type]) {
         return;
       }
-      props.navigator = this.props.navigator;
 
       return React.createElement(
         layoutComponents[private_type],

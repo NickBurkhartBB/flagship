@@ -15,6 +15,7 @@ import {
 import TextBlock from './TextBlock';
 import CTABlock from './CTABlock';
 import ImageBlock from './ImageBlock';
+import { Navigation } from 'react-native-navigation';
 
 const styles = StyleSheet.create({
   whenIcon: {
@@ -74,16 +75,20 @@ export default class EventCard extends Component<ComponentProps> {
     this.props.api.logEvent('viewInboxStory', {
       messageId: this.props.id
     });
-    this.props.navigator.push({
-      screen: 'EngagementComp',
-      navigatorStyle: {
-        navBarHidden: true
-      },
-      passProps: {
-        json,
-        backButton: true,
-        name: this.props.name,
-        id: this.props.id
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'EngagementComp',
+        passProps: {
+          json,
+          backButton: true,
+          name: this.props.name,
+          id: this.props.id
+        },
+        options: {
+          topBar: {
+            visible: false
+          }
+        }
       }
     });
   }

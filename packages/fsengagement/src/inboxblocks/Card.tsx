@@ -11,6 +11,7 @@ import {
   CardProps,
   JSON
 } from '../types';
+import { Navigation } from 'react-native-navigation';
 
 export interface ActionsCard extends CardProps {
   actions?: Action;
@@ -44,16 +45,20 @@ export default class Card extends Component<ActionsCard> {
     this.props.api.logEvent('viewInboxStory', {
       messageId: this.props.id
     });
-    this.props.navigator.push({
-      screen: 'EngagementComp',
-      navigatorStyle: {
-        navBarHidden: true
-      },
-      passProps: {
-        json,
-        backButton: true,
-        name: this.props.name,
-        id: this.props.id
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'EngagementComp',
+        passProps: {
+          json,
+          backButton: true,
+          name: this.props.name,
+          id: this.props.id
+        },
+        options: {
+          topBar: {
+            visible: false
+          }
+        }
       }
     });
   }
