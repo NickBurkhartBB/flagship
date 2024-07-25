@@ -96,7 +96,7 @@ program
     ${chalk.cyan((await detect()) + ` react-native run-ios`)}
         Run your iOS app locally
 
-    ${chalk.cyan((await detect()) + ` react-native run-andorid`)}
+    ${chalk.cyan((await detect()) + ` react-native run-android`)}
         Run your Android app locally
 
     ${chalk.cyan((await detect()) + ` react-native start`)}
